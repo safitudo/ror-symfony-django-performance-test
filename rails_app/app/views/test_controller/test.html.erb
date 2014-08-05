@@ -1,0 +1,26 @@
+<h1>Rails app</h1>
+<h1>Listing cards of user <%= @user.username %></h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Likes</th>
+    <th>Followers</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @cards.each do |card| %>
+      <tr>
+        <td><%= card.id %></td>
+        <td><%= card.name %></td>
+        <td><%= card.description[0..200] %> ...</td>
+        <td><%= card.likes_num %></td>
+        <td><%= card.followers_num %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

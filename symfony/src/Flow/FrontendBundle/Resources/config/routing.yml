@@ -1,0 +1,15 @@
+flow_frontend_homepage:
+    pattern:  /
+    defaults: { _controller: FlowFrontendBundle:Default:index }
+
+flow_frontend_random:
+    pattern:  /random
+    defaults: { _controller: FlowFrontendBundle:Default:random }
+
+flow_frontend_static:
+    pattern:  /staticpage
+    defaults: { _controller: FlowFrontendBundle:Default:static }
+
+FlowFrontendBundle_card:
+    resource: "@FlowFrontendBundle/Resources/config/routing/card.yml"
+    prefix:   /card

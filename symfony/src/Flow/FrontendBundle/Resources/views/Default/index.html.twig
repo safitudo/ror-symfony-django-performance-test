@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Symfony app</h1>
+    <h1>Cards, owned by {{ user.username }}</h1>
+
+    <table class="records_list">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Name</th>
+            <th>Likes</th>
+            <th>Followers</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in cards %}
+            <tr>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.description|slice(0, 50) ~ '...' }}</td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.l_count }}</td>
+                <td>{{ entity.f_count }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

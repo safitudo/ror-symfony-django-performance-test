@@ -1,0 +1,157 @@
+<?php
+
+namespace Flow\FrontendBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
+class User extends BaseUser
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Card", inversedBy="likers")
+     * @ORM\JoinTable(name="users_cards_likes")
+     */
+    protected $likes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Card", inversedBy="followers")
+     * @ORM\JoinTable(name="users_cards_followers")
+     */
+    protected $follows;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Card", mappedBy="owner")
+     */
+    protected $cards;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->likes = new ArrayCollection();
+        $this->cards = new ArrayCollection();
+        $this->follows = new ArrayCollection();
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add likes
+     *
+     * @param \Flow\FrontendBundle\Entity\Card $likes
+     * @return User
+     */
+    public function addLike(\Flow\FrontendBundle\Entity\Card $likes)
+    {
+        $this->likes[] = $likes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove likes
+     *
+     * @param \Flow\FrontendBundle\Entity\Card $likes
+     */
+    public function removeLike(\Flow\FrontendBundle\Entity\Card $likes)
+    {
+        $this->likes->removeElement($likes);
+    }
+
+    /**
+     * Get likes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * Add cards
+     *
+     * @param \Flow\FrontendBundle\Entity\Card $cards
+     * @return User
+     */
+    public function addCard(\Flow\FrontendBundle\Entity\Card $cards)
+    {
+        $this->cards[] = $cards;
+    
+        return $this;
+    }
+
+    /**
+     * Remove cards
+     *
+     * @param \Flow\FrontendBundle\Entity\Card $cards
+     */
+    public function removeCard(\Flow\FrontendBundle\Entity\Card $cards)
+    {
+        $this->cards->removeElement($cards);
+    }
+
+    /**
+     * Get cards
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCards()
+    {
+        return $this->cards;
+    }
+
+    /**
+     * Add follows
+     *
+     * @param \Flow\FrontendBundle\Entity\Card $follows
+     * @return User
+     */
+    public function addFollow(\Flow\FrontendBundle\Entity\Card $follows)
+    {
+        $this->follows[] = $follows;
+    
+        return $this;
+    }
+
+    /**
+     * Remove follows
+     *
+     * @param \Flow\FrontendBundle\Entity\Card $follows
+     */
+    public function removeFollow(\Flow\FrontendBundle\Entity\Card $follows)
+    {
+        $this->follows->removeElement($follows);
+    }
+
+    /**
+     * Get follows
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFollows()
+    {
+        return $this->follows;
+    }
+}
